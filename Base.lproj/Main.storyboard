@@ -62,6 +62,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="button_latlongSearch" destination="eja-BF-RwV" id="lta-VK-GZo"/>
+                        <outlet property="button_textSearch" destination="FvF-kc-e6A" id="iZj-L9-6Fd"/>
+                        <outlet property="imageView" destination="woe-4F-Hu3" id="eFl-yc-1QV"/>
+                        <outlet property="textField_searchByLat" destination="l6s-Hq-bHb" id="ruO-xk-kJs"/>
+                        <outlet property="textField_searchByLong" destination="nNq-Ip-kdK" id="chZ-LT-5BV"/>
+                        <outlet property="textField_searchByText" destination="x1u-n7-MUh" id="HNI-M4-dG2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

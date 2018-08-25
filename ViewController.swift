@@ -72,6 +72,71 @@ class ViewController: UIViewController {
         return url
     } // end build_url
     
+    
+    
+    
+    func makeRequest(url: URL) {
 
-}
+        URLSession.shared.dataTask(with: url) {
+        (data, respond, error) in
+            
+            guard let data = data else {return}
+            do {
+                let convertedJSON = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as! [String: AnyObject]
+                let photos = convertedJSON["photos"] as! [String: AnyObject]
+                let photosArray = photos["photo"] as! [[String: AnyObject]] // Array of dictionaries
+                
+                let randNumber = Int(arc4random_uniform(100) + 1)
+                let selectedPhoto = photosArray[randNumber] as [String: AnyObject]
+                let imageURL = URL(string: selectedPhoto["url_m"] as! String)
+                
+                
+                
+               if let imageData = try? Data(contentsOf: imageURL!) {
+                DispatchQueue.main.async {
+                    self.imageView.image = UIImage(data: imageData)}
+                
+                
+                }
 
+            } catch {return}
+
+            
+            
+            
+        }.resume()
+        
+    } // end makeRequest
+    
+    
+    
+    
+    
+    @IBAction func button_searchByText()  {
+        
+        if let text = self.textField_searchByText.text {
+            
+            let url = self.build_url(keyName: "text", value: text)
+            
+
+            // send the request
+            makeRequest(url: url.url!)
+        }
+        
+        
+    } // end button_searchByText
+    
+    
+    
+    
+    
+    @IBAction func button_serchByLatLong() {
+        
+        let url = self.build_url(keyName: "bbox", value: get_bbox_string())
+
+        // send the request
+        makeRequest(url: url.url!)
+        
+    } // end button_searchByText
+
+} // end class
